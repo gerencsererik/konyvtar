@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKonyvRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +19,9 @@ class KonyvekController extends Controller
         return view('konyvek.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreKonyvRequest $request)
     {
+        $validated = $request->validated();
         DB::table('konyvek')->insert([
             'id' => uniqid(),
             'nev' => $request->nev,
@@ -49,8 +51,9 @@ class KonyvekController extends Controller
         return view('konyvek.edit', compact('konyv'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreKonyvRequest $request, $id)
     {
+        $validated = $request->validated();
         DB::table('konyvek')->where('id', $id)->update([
             'nev' => $request->nev,
             'iro_szuletesi_eve' => $request->iro_szuletesi_eve,
