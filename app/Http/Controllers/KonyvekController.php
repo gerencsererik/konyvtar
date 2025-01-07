@@ -32,6 +32,17 @@ class KonyvekController extends Controller
         return redirect()->route('konyvek.index')->with('success', 'Könyv hozzáadva!');
     }
 
+    public function show(string $id)
+    {
+        // $books = DB::table('books')->where('id', '=', $id)->get();
+        // $book = $books[0];
+        $book = DB::table('konyvek')->where('id', $id)->first();
+        if(!$book){
+            abort(404);
+        }
+        return view('konyvek.show', ['book' => $book]);
+    }
+
     public function edit($id)
     {
         $konyv = DB::table('konyvek')->where('id', $id)->first();

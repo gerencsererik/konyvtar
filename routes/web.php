@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KonyvekController;
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::get('', [KonyvekController::class, 'index']);
-
+Route::redirect('/', '/konyvek');
+Route::get('/konyvek/search', [KonyvekController::class, 'search'])->name('konyvek.search');
+Route::post('/konyvek/search', [KonyvekController::class, 'processSearch'])->name('konyvek.process.search');
+Route::resource('konyvek', KonyvekController::class);
